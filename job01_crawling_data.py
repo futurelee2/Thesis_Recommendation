@@ -81,7 +81,7 @@ for page in range (1, 11):
     print(abstracts)
     print(titles)
     print(list_address)
-    df = pd.DataFrame({'titles': titles, 'abstracts': abstracts})
+    df = pd.DataFrame({'titles': titles, 'abstracts': abstracts, 'address' : list_address})
     if page % 5 == 0:
         df.to_csv('./crawling_data/reviews_2020_1_{}page.csv'.format(page), index=False)
 
@@ -116,12 +116,12 @@ for i in range (2, 11):
 
                 address = driver.current_url
                 list_address.append(address)
+                print(address)
 
                 review = key_word + ' ' + abstract
                 abstracts.append(review)
                 print(i, page)
 
-                driver.switch_to.window(driver.window_handles[-1])
                 driver.close()
                 driver.switch_to.window(driver.window_handles[0])
                 time.sleep(2)
@@ -129,11 +129,10 @@ for i in range (2, 11):
             except:
                 print('error', page, (count // 3) + 1)
 
-
-
         print(abstracts)
         print(titles)
-        df = pd.DataFrame({'titles': titles, 'abstracts': abstracts})
+        print(list_address)
+        df = pd.DataFrame({'titles': titles, 'abstracts': abstracts, 'address':list_address})
         if (page-2) % 5 == 0:
             df.to_csv('./crawling_data/reviews_2020_{}_{}page.csv'.format(i, page-2), index=False)
         if (page-2) == 10 :
