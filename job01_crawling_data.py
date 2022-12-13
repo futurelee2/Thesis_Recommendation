@@ -17,13 +17,13 @@ options.add_argument('lang=ko_KR')
 driver = webdriver.Chrome(options = options)
 url = 'https://kiss.kstudy.com/search/sch-result.asp'
 driver.get(url)
-time.sleep(10)
-check_2022 = '//*[@id="mCSB_2_container"]/div[1]/label/input'
-driver.find_element('xpath', check_2022).click()
-# time.sleep(2)
-# check_2021 = '//*[@id="mCSB_2_container"]/div[2]/label/input'
-# driver.find_element('xpath', check_2021).click()
-# time.sleep(2)
+# time.sleep(10)
+# check_2022 = '//*[@id="mCSB_2_container"]/div[1]/label/input'
+# driver.find_element('xpath', check_2022).click()
+time.sleep(2)
+check_2021 = '//*[@id="mCSB_2_container"]/div[2]/label/input'
+driver.find_element('xpath', check_2021).click()
+time.sleep(2)
 # check_2020 = '//*[@id="mCSB_2_container"]/div[3]/label/input'
 # driver.find_element('xpath', check_2020).click()
 # time.sleep(2)
@@ -42,7 +42,7 @@ for page in range (1, 11):
     page_xpath = '//*[@id="right"]/div[2]/a[{}]'.format(page)
     driver.find_element('xpath', page_xpath).click()
     time.sleep(2)
-    for count in range (1, 5, 3): # 29
+    for count in range (1, 29, 3): # 29
         try:
             title_xpath = '//*[@id="form_main"]/table/tbody/tr[{}]/td[2]/div/div[1]/h5/a'.format(count)
             title = driver.find_element('xpath', title_xpath).text
@@ -63,7 +63,7 @@ for page in range (1, 11):
 
 
         except:
-            print('error', page, (title//3)+1)
+            print('error', page, (count//3)+1)
 
 
         driver.switch_to.window(driver.window_handles[-1])
@@ -75,13 +75,13 @@ for page in range (1, 11):
     print(titles)
     df = pd.DataFrame({'titles': titles, 'abstracts': abstracts})
     if page % 5 == 0:
-        df.to_csv('./crawling_data/reviews_2022_1_{}page.csv'.format(page), index=False)
+        df.to_csv('./crawling_data/reviews_2021_1_{}page.csv'.format(page), index=False)
 
 next_xpath = '//*[@id="right"]/div[2]/a[11]'
 driver.find_element('xpath', next_xpath).click()
 time.sleep(2)
 
-# 20 ~ 100
+# 11 ~ 100
 for i in range (2, 11):
     abstracts = []
     titles = []
@@ -89,7 +89,7 @@ for i in range (2, 11):
         page_xpath = '//*[@id="right"]/div[2]/a[{}]'.format(page)
         driver.find_element('xpath', page_xpath).click()
         time.sleep(2)
-        for count in range(1, 5, 3):
+        for count in range(1, 29, 3):
             try:
                 title_xpath = '//*[@id="form_main"]/table/tbody/tr[{}]/td[2]/div/div[1]/h5/a'.format(count)
                 title = driver.find_element('xpath', title_xpath).text
@@ -120,7 +120,7 @@ for i in range (2, 11):
         print(titles)
         df = pd.DataFrame({'titles': titles, 'abstracts': abstracts})
         if (page-2) % 5 == 0:
-            df.to_csv('./crawling_data/reviews_2022_{}_{}page.csv'.format(i, page), index=False)
+            df.to_csv('./crawling_data/reviews_2021_{}_{}page.csv'.format(i, page), index=False)
         if (page-2) == 10 :
             next_xpath = '//*[@id="right"]/div[2]/a[13]'
             driver.find_element('xpath', next_xpath).click()
