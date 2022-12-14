@@ -18,15 +18,15 @@ driver = webdriver.Chrome(options = options)
 url = 'https://kiss.kstudy.com/search/sch-result.asp'
 driver.get(url)
 time.sleep(10)
-# check_2022 = '//*[@id="mCSB_2_container"]/div[1]/label/input'
-# driver.find_element('xpath', check_2022).click()
-# # time.sleep(2)
+check_2022 = '//*[@id="mCSB_2_container"]/div[1]/label/input'
+driver.find_element('xpath', check_2022).click()
+time.sleep(2)
 # check_2021 = '//*[@id="mCSB_2_container"]/div[2]/label/input'
 # driver.find_element('xpath', check_2021).click()
 # time.sleep(2)
-check_2020 = '//*[@id="mCSB_2_container"]/div[3]/label/input'
-driver.find_element('xpath', check_2020).click()
-time.sleep(2)
+# check_2020 = '//*[@id="mCSB_2_container"]/div[3]/label/input'
+# driver.find_element('xpath', check_2020).click()
+# time.sleep(2)
 check_kci = '//*[@id="mCSB_3_container"]/div[2]/label/input'
 driver.find_element('xpath', check_kci).click()
 time.sleep(2)
@@ -83,7 +83,7 @@ for page in range (1, 11):
     print(list_address)
     df = pd.DataFrame({'titles': titles, 'abstracts': abstracts, 'address' : list_address})
     if page % 5 == 0:
-        df.to_csv('./crawling_data/reviews_2020_1_{}page.csv'.format(page), index=False)
+        df.to_csv('./crawling_data/reviews_2022_1_{}page.csv'.format(page), index=False)
 
 next_xpath = '//*[@id="right"]/div[2]/a[11]'
 driver.find_element('xpath', next_xpath).click()
@@ -120,21 +120,21 @@ for i in range (2, 11):
 
                 review = key_word + ' ' + abstract
                 abstracts.append(review)
-                print(i, page)
+                print(i, page-2)
 
                 driver.close()
                 driver.switch_to.window(driver.window_handles[0])
                 time.sleep(2)
 
             except:
-                print('error', page, (count // 3) + 1)
+                print('error', page-2, (count // 3) + 1)
 
         print(abstracts)
         print(titles)
         print(list_address)
         df = pd.DataFrame({'titles': titles, 'abstracts': abstracts, 'address':list_address})
         if (page-2) % 5 == 0:
-            df.to_csv('./crawling_data/reviews_2020_{}_{}page.csv'.format(i, page-2), index=False)
+            df.to_csv('./crawling_data/reviews_2022_{}_{}page.csv'.format(i, page-2), index=False)
         if (page-2) == 10 :
             next_xpath = '//*[@id="right"]/div[2]/a[13]'
             driver.find_element('xpath', next_xpath).click()
