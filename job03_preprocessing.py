@@ -8,7 +8,7 @@ print(df.head())
 
 df_stopwords = pd.read_csv('./stopwords.csv', index_col=0)
 stopwords = list(df_stopwords['stopword'])
-stopwords = stopwords + ['하다','제시','논문', '확인','또는', '소개','또한']
+stopwords = stopwords + ['하다','제시','논문','확인','또는','소개','또한','이다','있다','되다','보다','많다','되어다']
 
 okt = Okt()
 df['clean_abstracts'] = None #df에 새로운 컬럼 추가(none값으로)

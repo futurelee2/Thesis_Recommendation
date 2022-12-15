@@ -13,8 +13,10 @@ df_reviews = pd.read_csv('./crawling_data/cleaned_abstracts_2020_2022.csv')
 df_reviews.dropna(inplace=True)
 df_reviews.info()
 
-tfidf = TfidfVectorizer()
+tfidf = TfidfVectorizer() #각 단어의 중요성을 가중치로 표현
 tfidf_matrix = tfidf.fit_transform(df_reviews['clean_abstracts'])
+print(tfidf_matrix[0])
+print(type(tfidf_matrix)) #매트릭스
 print(tfidf_matrix[0].shape)
 with open('./models/tfidf.pickle','wb') as f:
     pickle.dump(tfidf, f)

@@ -32,7 +32,7 @@ plt.axis('off') #많이 나오는 단어는 크게 그려줌
 
 
 # 이부분 비교하기 위해서 추가함 (겨울왕국과 겨울왕국을 통해 추천받은 영화를 비교하기 위해)
-words = df[df['titles']=='유도탄 전자기 내성 시험에 대한 고찰']['clean_abstracts']
+words = df[df['titles']=='Caffe를 이용한 얼굴 인식 파이프라인 모델 구현']['clean_abstracts']
 words = words.iloc[0].split()
 worddict = collections.Counter(words)
 worddict = dict(worddict)
